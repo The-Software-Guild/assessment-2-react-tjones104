@@ -3,22 +3,22 @@ const router = express.Router();
 const { v4: uuidv4 } = require("uuid");
 const _ = require("underscore");
 
-// stored data array (ppu = price per unit)
-const recycledItems = [
+// stored data array (price = price per unit)
+const groceryItems = [
   {
-    name: "Pizza Box",
-    description: "Cardboard",
-    recyclable: true,
-    quantity: 1,
-    ppu: 2,
+    name: "C7X",
+    series: "CX",
+    digital: false,
+    colors: ["black", "grey", "brown"],
+    price: 82999.0,
     _id: "123",
   },
   {
-    name: "To-go container",
-    description: "Polystyrene Foam",
-    recyclable: false,
-    quantity: 2,
-    ppu: 4,
+    name: "YDP-184",
+    series: "Arius",
+    digital: true,
+    colors: ["brown"],
+    price: 2399.99,
     _id: "1234",
   },
 ];
@@ -30,17 +30,17 @@ router.get("/itemsIntake", (req, res) => {
   let query = req.query;
   let deleteKeys = _.difference(
     Object.keys(req.query),
-    Object.keys(recycledItems[0])
+    Object.keys(groceryItems[0])
   );
   deleteKeys.forEach((key) => delete query[key]);
 
   if (Object.keys(query).length != 0) {
-    if (query.recyclable != undefined) {
-      query.recyclable =
-        query.recyclable === "true" ||
-        (query.recyclable === "false" ? false : query.recyclable);
+    if (query.digital != undefined) {
+      query.digital =
+        query.digital === "true" ||
+        (query.digital === "false" ? false : query.digital);
     }
-    const filteredItems = recycledItems.filter((item) => {
+    const filteredItems = groceryItems.filter((item) => {
       let isValid = true;
       for (key in query) {
         isValid = isValid && item[key] == query[key];
@@ -49,7 +49,7 @@ router.get("/itemsIntake", (req, res) => {
     });
     res.status(200).send(filteredItems);
   } else if (deleteKeys.length == 0) {
-    res.status(200).send(recycledItems);
+    res.status(200).send(groceryItems);
   } else {
     res.status(404).send("This query could not found");
   }
@@ -58,15 +58,14 @@ router.get("/itemsIntake", (req, res) => {
 // GET ONE
 router.get("/itemsIntake/:id", (req, res) => {
   if (
-    recycledItems.findIndex((recycledItems) => {
-      return recycledItems._id == req.params.id;
+    groceryItems.findIndex((groceryItems) => {
+      return groceryItems._id == req.params.id;
     }) != -1
   ) {
-    let index = recycledItems.findIndex((recycledItems) => {
-      return recycledItems._id == req.params.id;
+    let index = groceryItems.findIndex((groceryItems) => {
+      return groceryItems._id == req.params.id;
     });
-
-    res.status(200).send(recycledItems[index]);
+    res.status(200).send(groceryItems[index]);
   } else {
     res.status(404).send("The id was not found");
   }
@@ -75,17 +74,16 @@ router.get("/itemsIntake/:id", (req, res) => {
 // POST
 router.post("/itemsIntake", (req, res) => {
   if (Object.keys(req.body).length == 5) {
-    let { name, description, recyclable, quantity, ppu } = req.body;
-    recycledItems.push({
+    let { name, series, digital, colors, price } = req.body;
+    groceryItems.push({
       name: name,
-      description: description,
-      recyclable: recyclable,
-      quantity: quantity,
-      quantity: quantity,
-      ppu: ppu,
+      series: series,
+      digital: digital,
+      colors: colors,
+      price: price,
       _id: uuidv4(),
     });
-    res.status(200).send(recycledItems);
+    res.status(200).send(groceryItems);
   } else {
     res.status(404).send("Incorrect number of properties");
   }
@@ -94,23 +92,22 @@ router.post("/itemsIntake", (req, res) => {
 // UPDATE
 router.put("/itemsIntake/:id", (req, res) => {
   if (
-    recycledItems.findIndex((recycledItems) => {
-      return recycledItems._id == req.params.id;
+    groceryItems.findIndex((groceryItems) => {
+      return groceryItems._id == req.params.id;
     }) != -1
   ) {
-    let { name, description, recyclable, quantity, ppu } = req.body;
-    let index = recycledItems.findIndex((recycledItems) => {
-      return recycledItems._id == req.params.id;
+    let { name, series, digital, colors, price } = req.body;
+    let index = groceryItems.findIndex((groceryItems) => {
+      return groceryItems._id == req.params.id;
     });
-    Object.assign(recycledItems[index], {
+    Object.assign(groceryItems[index], {
       name: name,
-      description: description,
-      recyclable: recyclable,
-      quantity: quantity,
-      quantity: quantity,
-      ppu: ppu,
+      series: series,
+      digital: digital,
+      colors: colors,
+      price: price,
     });
-    res.status(200).send(recycledItems[index]);
+    res.status(200).send(groceryItems[index]);
   } else {
     res.status(404).send("The id was not found");
   }
@@ -119,15 +116,15 @@ router.put("/itemsIntake/:id", (req, res) => {
 // DELETE
 router.delete("/itemsIntake/:id", (req, res) => {
   if (
-    recycledItems.findIndex((recycledItems) => {
-      return recycledItems._id == req.params.id;
+    groceryItems.findIndex((groceryItems) => {
+      return groceryItems._id == req.params.id;
     }) != -1
   ) {
-    let index = recycledItems.findIndex((recycledItems) => {
-      return recycledItems._id == req.params.id;
+    let index = groceryItems.findIndex((groceryItems) => {
+      return groceryItems._id == req.params.id;
     });
-    recycledItems.splice(index, 1);
-    res.status(200).send(recycledItems);
+    groceryItems.splice(index, 1);
+    res.status(200).send(groceryItems);
   } else {
     res.status(404).send("The id was not found");
   }

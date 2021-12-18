@@ -35,18 +35,20 @@ describe("Api Tests", () => {
   // Test GET QUERY
   describe("GET ONE QUERY /api/itemsIntake/:id", () => {
     it("Should GET item/s with query", (done) => {
-      const param = "?description=Cardboard";
+      const param = "?series=CX";
       chai
         .request(server)
         .get("/api/itemsIntake" + param)
         .end((err, res) => {
           res.should.have.status(200);
           res.body[0].should.be.a("object");
-          res.body[0].should.have.property("name").eq("Pizza Box");
-          res.body[0].should.have.property("description").eq("Cardboard");
-          res.body[0].should.have.property("recyclable").eq(true);
-          res.body[0].should.have.property("quantity").eq(1);
-          res.body[0].should.have.property("ppu").eq(2);
+          res.body[0].should.have.property("name").eq("C7X");
+          res.body[0].should.have.property("series").eq("CX");
+          res.body[0].should.have.property("digital").eq(false);
+          res.body[0].should.have
+            .property("colors")
+            .members(["black", "grey", "brown"]);
+          res.body[0].should.have.property("price").eq(82999.0);
           res.body[0].should.have.property("_id").eq("123");
           done();
         });
@@ -74,11 +76,13 @@ describe("Api Tests", () => {
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a("object");
-          res.body.should.have.property("name").eq("Pizza Box");
-          res.body.should.have.property("description").eq("Cardboard");
-          res.body.should.have.property("recyclable").eq(true);
-          res.body.should.have.property("quantity").eq(1);
-          res.body.should.have.property("ppu").eq(2);
+          res.body.should.have.property("name").eq("C7X");
+          res.body.should.have.property("series").eq("CX");
+          res.body.should.have.property("digital").eq(false);
+          res.body.should.have
+            .property("colors")
+            .members(["black", "grey", "brown"]);
+          res.body.should.have.property("price").eq(82999.0);
           res.body.should.have.property("_id").eq("123");
           done();
         });
@@ -100,11 +104,11 @@ describe("Api Tests", () => {
   describe("POST /api/itemsIntake", () => {
     it("Should POST a new item", (done) => {
       const item = {
-        name: "Milk Jug",
-        description: "Plastic",
-        recyclable: true,
-        quantity: 4,
-        ppu: 10,
+        name: "YUS3",
+        series: "YUS",
+        digital: false,
+        colors: ["black", "grey", "white"],
+        price: 19599.0,
       };
       chai
         .request(server)
@@ -113,11 +117,13 @@ describe("Api Tests", () => {
         .end((err, res) => {
           res.should.have.status(200);
           res.body[2].should.be.a("object");
-          res.body[2].should.have.property("name").eq("Milk Jug");
-          res.body[2].should.have.property("description").eq("Plastic");
-          res.body[2].should.have.property("recyclable").eq(true);
-          res.body[2].should.have.property("quantity").eq(4);
-          res.body[2].should.have.property("ppu").eq(10);
+          res.body[2].should.have.property("name").eq("YUS3");
+          res.body[2].should.have.property("series").eq("YUS");
+          res.body[2].should.have.property("digital").eq(false);
+          res.body[2].should.have
+            .property("colors")
+            .members(["black", "grey", "white"]);
+          res.body[2].should.have.property("price").eq(19599.0);
           res.body[2].should.have.property("_id");
           res.body.length.should.be.eq(3);
           done();
@@ -125,10 +131,10 @@ describe("Api Tests", () => {
     });
     it("Should NOT POST a new item", (done) => {
       const item = {
-        name: "Milk Jug",
-        description: "Plastic",
-        recyclable: true,
-        quantity: 4,
+        name: "YUS3",
+        series: "YUS",
+        digital: false,
+        colors: ["black", "grey", "white"],
       };
       chai
         .request(server)
@@ -147,11 +153,11 @@ describe("Api Tests", () => {
     it("Should PUT an existing item passing id param", (done) => {
       const _id = "123";
       const item = {
-        name: "Can",
-        description: "Aluminum",
-        recyclable: true,
-        quantity: 10,
-        ppu: 0.5,
+        name: "CSP-170",
+        series: "Clavinova",
+        digital: true,
+        colors: ["black", "grey"],
+        price: 5999.0,
       };
       chai
         .request(server)
@@ -160,11 +166,11 @@ describe("Api Tests", () => {
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a("object");
-          res.body.should.have.property("name").eq("Can");
-          res.body.should.have.property("description").eq("Aluminum");
-          res.body.should.have.property("recyclable").eq(true);
-          res.body.should.have.property("quantity").eq(10);
-          res.body.should.have.property("ppu").eq(0.5);
+          res.body.should.have.property("name").eq("CSP-170");
+          res.body.should.have.property("series").eq("Clavinova");
+          res.body.should.have.property("digital").eq(true);
+          res.body.should.have.property("colors").members(["black", "grey"]);
+          res.body.should.have.property("price").eq(5999.0);
           res.body.should.have.property("_id");
           done();
         });
@@ -172,11 +178,11 @@ describe("Api Tests", () => {
     it("Should NOT PUT an existing item passing incorrect id param", (done) => {
       const _id = "abc";
       const item = {
-        name: "Can",
-        description: "Aluminum",
-        recyclable: true,
-        quantity: 10,
-        ppu: 0.5,
+        name: "CSP-170",
+        series: "Clavinova",
+        digital: true,
+        colors: ["black", "grey"],
+        price: 5999.0,
       };
       chai
         .request(server)
