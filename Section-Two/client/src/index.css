@@ -139,12 +139,37 @@ td {
   background-color: rgb(255, 38, 0);
 
   position: absolute;
-  top: 77.1%;
+  top: 77%;
   right: 10%;
 }
 
 .cancel-edit:hover {
   background: rgb(185, 28, 0);
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 650px;
+  max-width: 100%;
+  height: 500px;
+  max-height: 100%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 75px;
+  z-index: 1000;
 }
 
 h2 {
@@ -188,51 +213,18 @@ button:hover {
 }
 
 @media screen and (max-width: 725px) {
-  * {
-    margin: 0;
-    font-family: "Open Sans";
-    color: rgb(0, 0, 0);
-  }
   .navbar {
     padding: 10px;
-    display: flex;
-    align-items: center;
-    margin: 0 auto;
-    border-bottom: 1px solid #f2f2f2;
-    background-color: #ffffff;
   }
   .navbar h1 {
     font-size: 20px;
-    color: #09bc8a;
   }
-  .navbar .links {
-    margin-left: auto;
-  }
+
   .navbar a {
     margin-left: auto;
-    text-decoration: none;
     padding: 5px;
   }
-  .navbar a:hover {
-    color: #09bc8a;
-  }
-  .main {
-    max-width: 1200px;
-    margin: auto;
-    padding: 20px;
-  }
-  .get-list {
-    padding: 5px 10px;
-    margin: auto;
-    border-bottom: 1px solid #fafafa;
-    box-shadow: 1px 3px 5px #76c893;
-  }
-  .show-list {
-    width: 100%;
-    padding: 5px 10px;
-    margin: 20px auto;
-    border-collapse: collapse;
-  }
+
   .show-list th,
   tr,
   td {
@@ -260,16 +252,42 @@ button:hover {
     text-align: center;
     box-shadow: 1px 3px 5px #76c893;
   }
-  .put-item {
-    padding: 10px 50px;
-    margin: 0 auto;
-    text-align: center;
-    box-shadow: 1px 3px 5px #76c893;
+
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
   }
-  .delete-item {
-    padding: 10px 50px;
-    margin: 0 auto;
-    text-align: center;
-    box-shadow: 1px 3px 5px #76c893;
+
+  .modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 350px;
+    max-width: 100%;
+    height: 500px;
+    max-height: 100%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 75px;
+    z-index: 1000;
+  }
+
+  .cancel-edit {
+    background-color: rgb(255, 38, 0);
+
+    position: absolute;
+    top: 77%;
+    right: 15%;
+  }
+
+  button {
+    padding: 5px;
+    margin: 5px;
   }
 }
