@@ -61,12 +61,12 @@ router.get("/itemsIntake/:id", (req, res) => {
     });
     res.status(200).send(instrumentItems[index]);
   } else {
-    res.status(500).send("The id was not found");
+    next(new Error("The id was not found"));
   }
 });
 
 // POST
-router.post("/itemsIntake", (req, res) => {
+router.post("/itemsIntake", (req, res, next) => {
   if (Object.keys(req.body).length == 5) {
     let { name, series, digital, colors, price } = req.body;
     instrumentItems.push({
@@ -79,7 +79,7 @@ router.post("/itemsIntake", (req, res) => {
     });
     res.status(201).send(instrumentItems);
   } else {
-    res.status(500).send("Incorrect number of properties");
+    next(new Error("Incorrect number of properties"));
   }
 });
 
@@ -103,7 +103,7 @@ router.put("/itemsIntake/:id", (req, res) => {
     });
     res.status(201).send(instrumentItems[index]);
   } else {
-    res.status(500).send("The id was not found");
+    next(new Error("The id was not found"));
   }
 });
 
@@ -120,7 +120,7 @@ router.delete("/itemsIntake/:id", (req, res) => {
     instrumentItems.splice(index, 1);
     res.status(201).send(instrumentItems);
   } else {
-    res.status(500).send("The id was not found");
+    next(new Error("The id was not found"));
   }
 });
 

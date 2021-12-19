@@ -24,6 +24,11 @@ app.use(morgan("dev"));
 // route initialize
 app.use("/api", require("./routes/itemsIntake"));
 
+// global error handler
+app.use((err, req, res, next) => {
+  res.send({ error: { status: err.status || 500, message: err.message } });
+});
+
 // server startup logic
 const server = app.listen(PORT, () => {
   console.log(`Server started | Link: http://localhost:${PORT}/`);
