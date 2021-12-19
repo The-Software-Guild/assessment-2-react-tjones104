@@ -1,4 +1,4 @@
-const { strictEquals, expected } = require("./equivalence");
+const { strictEquals, expected } = require("../equivalence");
 var expect = require("chai").expect;
 
 describe("Equivalence Tests", () => {

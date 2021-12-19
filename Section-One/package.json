@@ -2,9 +2,10 @@
   "name": "section-one",
   "version": "1.0.0",
   "description": "",
-  "main": "equivalence.js",
+  "Part A": "equivalence.js",
+  "Part B": "prototypal.js",
   "scripts": {
-    "test": "mocha ./*.test.js"
+    "test": "mocha ./tests/*.test.js"
   },
   "keywords": [],
   "author": "",
