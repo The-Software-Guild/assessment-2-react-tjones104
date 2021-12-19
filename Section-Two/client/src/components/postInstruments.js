@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import GetInstruments from "./getInstruments";
 import axios from "axios";
 
 class PostInstruments extends Component {
@@ -30,23 +29,6 @@ class PostInstruments extends Component {
       colors: newArray,
     });
   }
-
-  // handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   fetch("http://localhost:8080/api/itemsIntake", {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify(this.state),
-  //   })
-  //     .then(() => {
-  //       console.log(this.state);
-  //       alert("Succuss: Item added");
-  //       //window.location.reload(false);
-  //     })
-  //     .catch((error) => {
-  //       alert("Error: Could not post");
-  //     });
-  // };
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -135,9 +117,6 @@ class PostInstruments extends Component {
           />
           <button>Add Piano</button>
         </form>
-        <div>
-          <GetInstruments />
-        </div>
       </div>
     );
   }

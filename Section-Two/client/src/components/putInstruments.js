@@ -1,12 +1,10 @@
 import axios from "axios";
 import React, { Component } from "react";
-import GetInstruments from "./getInstruments";
 
 class PutInstruments extends Component {
   constructor() {
     super();
     this.state = {
-      id: "",
       name: "",
       series: "",
       digital: false,
@@ -32,30 +30,10 @@ class PutInstruments extends Component {
     });
   }
 
-  // handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   fetch("http://localhost:8080/api/itemsIntake/" + this.state.id, {
-  //     method: "PUT",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify(this.state),
-  //   })
-  //     .then((res) => {
-  //       if (res.status === 201) {
-  //         alert("Succuss: Item updated");
-  //         window.location.reload(false);
-  //       } else {
-  //         alert("Error: This Id was not found");
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       alert("Error: Could not update");
-  //     });
-  // };
-
   handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .put(`http://localhost:8080/api/itemsIntake/${this.state.id}`, this.state)
+      .put(`http://localhost:8080/api/itemsIntake/${this.props.id}`, this.state)
       .then((res) => {
         if (res.status === 201) {
           alert("Succuss: Item updated");
@@ -75,16 +53,6 @@ class PutInstruments extends Component {
         <div>
           <h2>Update a Piano</h2>
           <form onSubmit={this.handleSubmit}>
-            <label>Id:</label>
-            <input
-              type="text"
-              name="id"
-              value={this.state.id}
-              minLength="36"
-              maxLength="36"
-              onChange={this.handleChange}
-              required
-            />
             <label>Name:</label>
             <input
               type="text"
@@ -152,11 +120,8 @@ class PutInstruments extends Component {
               onChange={this.handleChange}
               required
             />
-            <button>Update Piano</button>
+            <button>Submit Edit</button>
           </form>
-        </div>
-        <div>
-          <GetInstruments />
         </div>
       </div>
     );

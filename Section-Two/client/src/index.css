@@ -70,15 +70,14 @@ td {
 }
 
 .put-item {
-  padding: 10px 50px;
-  margin: auto;
+  width: 100%;
+  align-items: center;
   text-align: center;
   box-shadow: 1px 3px 5px #76c893;
 }
 
 .put-item form {
-  padding: 0px;
-  margin: auto;
+  width: 100%;
 }
 
 .get-list-put {
@@ -123,8 +122,29 @@ td {
   background-color: rgb(50, 139, 255);
 }
 
-.delete-button {
+.edit-button:hover {
+  background-color: rgb(33, 92, 131);
+}
+
+.red-button {
+  align-items: center;
   background-color: rgb(255, 38, 0);
+}
+
+.red-button:hover {
+  background: rgb(185, 28, 0);
+}
+
+.cancel-edit {
+  background-color: rgb(255, 38, 0);
+
+  position: absolute;
+  top: 77.1%;
+  right: 10%;
+}
+
+.cancel-edit:hover {
+  background: rgb(185, 28, 0);
 }
 
 h2 {

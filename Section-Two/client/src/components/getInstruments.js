@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import DeleteInstruments from "./deleteInstruments";
+import PutInstruments from "./putInstruments";
+import Modal from "./modal";
 
 class GetInstruments extends Component {
   constructor() {
@@ -8,10 +10,12 @@ class GetInstruments extends Component {
     this.state = {
       instrumentItems: [],
       searchQuery: "",
+      ToggleModal: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleReset = this.handleReset.bind(this);
+    this.handletoggle = this.handletoggle.bind(this);
   }
 
   handleChange(e) {
@@ -23,16 +27,13 @@ class GetInstruments extends Component {
     window.location.reload(false);
   }
 
-  // componentDidMount() {
-  //   fetch("http://localhost:8080/api/itemsIntake")
-  //     .then((res) => res.json())
-  //     .then((instrumentItems) => {
-  //       this.setState({ instrumentItems });
-  //     })
-  //     .catch((error) => {
-  //       alert("Error: Could not fetch");
-  //     });
-  // }
+  handletoggle(id) {
+    if (this.state.ToggleModal === true) {
+      this.setState({ ToggleModal: { [id]: false } });
+    } else {
+      this.setState({ ToggleModal: { [id]: true } });
+    }
+  }
 
   componentDidMount() {
     axios
@@ -76,7 +77,7 @@ class GetInstruments extends Component {
             </div>
             <div>
               <button className="search-button">Search</button>
-              <button className="delete-button" onClick={this.handleReset}>
+              <button className="red-button" onClick={this.handleReset}>
                 Reset
               </button>
             </div>
@@ -91,8 +92,8 @@ class GetInstruments extends Component {
               <th>Colors</th>
               <th>Price</th>
               <th>Id</th>
-              <th></th>
-              <th></th>
+              <th>Edit</th>
+              <th>Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -107,11 +108,21 @@ class GetInstruments extends Component {
                   .padStart(items.price.toString().length + 1, "$")}`}</td>
                 <td>{items._id}</td>
                 <td>
-                  <button className="edit-button">Edit</button>
+                  <button
+                    className="edit-button"
+                    onClick={this.handletoggle.bind(this, items._id)}
+                  >
+                    Edit
+                  </button>
+                  <Modal
+                    open={this.state.ToggleModal[items._id]}
+                    onClose={this.handletoggle}
+                  >
+                    <PutInstruments id={items._id} />
+                  </Modal>
                 </td>
                 <td>
-                  {/* <button className="delete-button">Delete</button> */}
-                  {/* <DeleteInstruments id={items._id} /> */}
+                  <DeleteInstruments id={items._id} />
                 </td>
               </tr>
             ))}
