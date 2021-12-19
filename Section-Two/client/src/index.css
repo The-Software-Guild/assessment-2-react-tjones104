@@ -1,0 +1,255 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap");
+* {
+  margin: 0;
+  font-family: "Open Sans";
+  color: rgb(0, 0, 0);
+}
+
+.navbar {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  border-bottom: 1px solid #f2f2f2;
+  background-color: #ffffff;
+}
+
+.navbar h1 {
+  color: #09bc8a;
+}
+
+.navbar .links {
+  margin-left: auto;
+}
+
+.navbar a {
+  margin-left: 16px;
+  text-decoration: none;
+  padding: 10px;
+}
+
+.navbar a:hover {
+  color: #09bc8a;
+}
+
+.main {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+}
+
+.get-list {
+  padding: 5px 10px;
+  margin: auto;
+  border-bottom: 1px solid #fafafa;
+  box-shadow: 1px 3px 5px #76c893;
+}
+
+.show-list {
+  width: 100%;
+  padding: 5px 10px;
+  margin: 20px auto;
+  border-collapse: collapse;
+}
+
+.show-list th,
+tr,
+td {
+  padding: 10px 16px;
+  margin: 40px auto;
+  text-align: center;
+  border: 1px solid #76c893;
+  border-collapse: collapse;
+}
+
+.post-item {
+  padding: 10px 50px;
+  margin: 0 auto;
+  text-align: center;
+  box-shadow: 1px 3px 5px #76c893;
+}
+
+.put-item {
+  padding: 10px 50px;
+  margin: auto;
+  text-align: center;
+  box-shadow: 1px 3px 5px #76c893;
+}
+
+.put-item form {
+  padding: 0px;
+  margin: auto;
+}
+
+.get-list-put {
+  padding: 5px 10px;
+  margin: auto;
+  border-bottom: 1px solid #fafafa;
+}
+
+.delete-item {
+  padding: 10px 50px;
+  margin: 0 auto;
+  text-align: center;
+  box-shadow: 1px 3px 5px #76c893;
+}
+
+.delete-item form {
+  padding: 0px;
+  margin: auto;
+}
+
+.noItems {
+  font-size: 25px;
+  font-weight: bold;
+  padding: 25px 25px;
+}
+
+.checkmark {
+  display: flex;
+  align-items: center;
+}
+
+.checkmark input {
+  width: 5%;
+  margin-left: auto;
+}
+
+.checkmark label {
+  margin-right: auto;
+}
+
+.edit-button {
+  background-color: rgb(50, 139, 255);
+}
+
+.delete-button {
+  background-color: rgb(255, 38, 0);
+}
+
+h2 {
+  color: #09bc8a;
+  margin-top: auto;
+}
+
+form {
+  max-width: 600px;
+  margin: 40px auto;
+}
+
+label {
+  text-align: left;
+  display: block;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 6px 10px;
+  margin: 10px 0;
+  border: 1px solid #09bc8a;
+  box-sizing: border-box;
+  display: block;
+  background-color: #ecfef9;
+}
+
+button {
+  background: #09bc8a;
+  color: #fff;
+  border: 0;
+  padding: 10px;
+  margin: 15px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #079c72;
+}
+
+@media screen and (max-width: 725px) {
+  * {
+    margin: 0;
+    font-family: "Open Sans";
+    color: rgb(0, 0, 0);
+  }
+  .navbar {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    border-bottom: 1px solid #f2f2f2;
+    background-color: #ffffff;
+  }
+  .navbar h1 {
+    font-size: 20px;
+    color: #09bc8a;
+  }
+  .navbar .links {
+    margin-left: auto;
+  }
+  .navbar a {
+    margin-left: auto;
+    text-decoration: none;
+    padding: 5px;
+  }
+  .navbar a:hover {
+    color: #09bc8a;
+  }
+  .main {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+  }
+  .get-list {
+    padding: 5px 10px;
+    margin: auto;
+    border-bottom: 1px solid #fafafa;
+    box-shadow: 1px 3px 5px #76c893;
+  }
+  .show-list {
+    width: 100%;
+    padding: 5px 10px;
+    margin: 20px auto;
+    border-collapse: collapse;
+  }
+  .show-list th,
+  tr,
+  td {
+    padding: 0px 0px;
+    margin: 0px;
+    border: 1px solid #76c893;
+    border-collapse: collapse;
+  }
+  thead {
+    display: none;
+  }
+  td,
+  th {
+    text-align: left;
+    display: block;
+    float: left;
+    width: 100%;
+  }
+  .name {
+    font-weight: bold;
+  }
+  .post-item {
+    padding: 10px 50px;
+    margin: 0 auto;
+    text-align: center;
+    box-shadow: 1px 3px 5px #76c893;
+  }
+  .put-item {
+    padding: 10px 50px;
+    margin: 0 auto;
+    text-align: center;
+    box-shadow: 1px 3px 5px #76c893;
+  }
+  .delete-item {
+    padding: 10px 50px;
+    margin: 0 auto;
+    text-align: center;
+    box-shadow: 1px 3px 5px #76c893;
+  }
+}
