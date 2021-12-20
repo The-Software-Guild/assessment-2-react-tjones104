@@ -26,7 +26,9 @@ app.use("/api", require("./routes/itemsIntake"));
 
 // global error handler
 app.use((err, req, res, next) => {
-  res.send({ error: { status: err.status || 500, message: err.message } });
+  res
+    .status(500)
+    .send({ error: { status: err.status || 500, message: err.message } });
 });
 
 // server startup logic

@@ -26,7 +26,7 @@ describe("Api Tests", () => {
         .request(server)
         .get("/api/items")
         .end((err, res) => {
-          res.should.have.status(404);
+          res.should.have.status(500);
           done();
         });
     });
@@ -48,8 +48,7 @@ describe("Api Tests", () => {
           res.body[0].should.have
             .property("colors")
             .members(["black", "grey", "brown"]);
-          res.body[0].should.have.property("price").eq(82999.0);
-          res.body[0].should.have.property("_id").eq("123");
+          res.body[0].should.have.property("price").eq(82999.99);
           done();
         });
     });
@@ -59,8 +58,8 @@ describe("Api Tests", () => {
         .request(server)
         .get("/api/itemsIntake" + param)
         .end((err, res) => {
-          res.should.have.status(404);
-          res.text.should.be.eq("This query could not found");
+          res.should.have.status(200);
+          res.body.length.should.be.eq(0);
           done();
         });
     });
@@ -82,8 +81,7 @@ describe("Api Tests", () => {
           res.body.should.have
             .property("colors")
             .members(["black", "grey", "brown"]);
-          res.body.should.have.property("price").eq(82999.0);
-          res.body.should.have.property("_id").eq("123");
+          res.body.should.have.property("price").eq(82999.99);
           done();
         });
     });
@@ -93,8 +91,8 @@ describe("Api Tests", () => {
         .request(server)
         .get("/api/itemsIntake/" + _id)
         .end((err, res) => {
-          res.should.have.status(404);
-          res.text.should.be.eq("The id was not found");
+          res.should.have.status(500);
+          res.body.error.message.should.be.eq("The id was not found");
           done();
         });
     });
@@ -115,7 +113,7 @@ describe("Api Tests", () => {
         .post("/api/itemsIntake")
         .send(item)
         .end((err, res) => {
-          res.should.have.status(200);
+          res.should.have.status(201);
           res.body[2].should.be.a("object");
           res.body[2].should.have.property("name").eq("YUS3");
           res.body[2].should.have.property("series").eq("YUS");
@@ -141,8 +139,8 @@ describe("Api Tests", () => {
         .post("/api/itemsIntake")
         .send(item)
         .end((err, res) => {
-          res.should.have.status(404);
-          res.text.should.be.eq("Incorrect number of properties");
+          res.should.have.status(500);
+          res.body.error.message.should.be.eq("Incorrect number of properties");
           done();
         });
     });
@@ -164,7 +162,7 @@ describe("Api Tests", () => {
         .put("/api/itemsIntake/" + _id)
         .send(item)
         .end((err, res) => {
-          res.should.have.status(200);
+          res.should.have.status(201);
           res.body.should.be.a("object");
           res.body.should.have.property("name").eq("CSP-170");
           res.body.should.have.property("series").eq("Clavinova");
@@ -189,8 +187,8 @@ describe("Api Tests", () => {
         .put("/api/itemsIntake/" + _id)
         .send(item)
         .end((err, res) => {
-          res.should.have.status(404);
-          res.text.should.be.eq("The id was not found");
+          res.should.have.status(500);
+          res.body.error.message.should.be.eq("The id was not found");
           done();
         });
     });
@@ -203,7 +201,7 @@ describe("Api Tests", () => {
         .request(server)
         .delete("/api/itemsIntake/" + _id)
         .end((err, res) => {
-          res.should.have.status(200);
+          res.should.have.status(201);
           res.body.should.be.a("array");
           res.body.length.should.be.eq(2);
           done();
@@ -215,8 +213,8 @@ describe("Api Tests", () => {
         .request(server)
         .delete("/api/itemsIntake/" + _id)
         .end((err, res) => {
-          res.should.have.status(404);
-          res.text.should.be.eq("The id was not found");
+          res.should.have.status(500);
+          res.body.error.message.should.be.eq("The id was not found");
           done();
         });
     });

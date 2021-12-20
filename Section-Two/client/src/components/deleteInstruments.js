@@ -9,7 +9,7 @@ class DeleteInstruments extends Component {
       .then((res) => {
         if (res.status === 201) {
           alert("Succuss: Item deleted");
-          window.location.reload(false);
+          this.props.submit(e);
         } else {
           alert("Error: This Id was not found");
         }

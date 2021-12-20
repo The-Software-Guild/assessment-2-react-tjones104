@@ -10,12 +10,13 @@ class GetInstruments extends Component {
     this.state = {
       instrumentItems: [],
       searchQuery: "",
+      searchBy: "name",
       ToggleModal: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleReset = this.handleReset.bind(this);
-    this.handletoggle = this.handletoggle.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
   }
 
   handleChange(e) {
@@ -24,10 +25,11 @@ class GetInstruments extends Component {
 
   handleReset(e) {
     e.preventDefault();
-    window.location.reload(false);
+    this.componentDidMount();
+    this.setState({ searchQuery: "" });
   }
 
-  handletoggle(id) {
+  handleToggle(id) {
     if (this.state.ToggleModal === true) {
       this.setState({ ToggleModal: { [id]: false } });
     } else {
@@ -49,7 +51,12 @@ class GetInstruments extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    fetch("http://localhost:8080/api/itemsIntake?" + this.state.searchQuery)
+    fetch(
+      "http://localhost:8080/api/itemsIntake?" +
+        this.state.searchBy +
+        "=" +
+        this.state.searchQuery
+    )
       .then((res) => res.json())
       .then((instrumentItems) => {
         this.setState({ instrumentItems });
@@ -65,11 +72,25 @@ class GetInstruments extends Component {
         <h2>Piano List</h2>
         <form onSubmit={this.handleSubmit}>
           <div>
-            <label>Search: </label>
+            <div className="search-title">
+              <label>Search by:</label>
+              <select
+                className="search-by"
+                value={this.state.searchBy}
+                name="searchBy"
+                onChange={this.handleChange}
+              >
+                <option value="name">Name</option>
+                <option value="series">Series</option>
+                <option value="digital">Digital</option>
+                <option value="colors[]">Color</option>
+                <option value="_id">Id</option>
+              </select>
+            </div>
             <div>
               <input
                 type="text"
-                placeholder="Ex: series=Arius or _id=1234"
+                placeholder="Ex: Arius or C7X"
                 name="searchQuery"
                 value={this.state.searchQuery}
                 onChange={this.handleChange}
@@ -98,11 +119,11 @@ class GetInstruments extends Component {
           </thead>
           <tbody>
             {this.state.instrumentItems.map((items) => (
-              <tr key={items.id}>
+              <tr key={items._id}>
                 <td className="name">{items.name}</td>
                 <td>{items.series}</td>
                 <td>{items.digital.toString()}</td>
-                <td>{items.colors.toString()}</td>
+                <td>{items.colors.join(", ")}</td>
                 <td>{`${items.price
                   .toString()
                   .padStart(items.price.toString().length + 1, "$")}`}</td>
@@ -110,19 +131,23 @@ class GetInstruments extends Component {
                 <td>
                   <button
                     className="edit-button"
-                    onClick={this.handletoggle.bind(this, items._id)}
+                    onClick={this.handleToggle.bind(this, items._id)}
                   >
                     Edit
                   </button>
                   <Modal
                     open={this.state.ToggleModal[items._id]}
-                    onClose={this.handletoggle}
+                    onClose={this.handleToggle}
                   >
-                    <PutInstruments id={items._id} />
+                    <PutInstruments
+                      onClose={this.handleToggle}
+                      submit={this.handleReset}
+                      id={items._id}
+                    />
                   </Modal>
                 </td>
                 <td>
-                  <DeleteInstruments id={items._id} />
+                  <DeleteInstruments submit={this.handleReset} id={items._id} />
                 </td>
               </tr>
             ))}

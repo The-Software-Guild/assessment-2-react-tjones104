@@ -8,8 +8,10 @@ class PostInstruments extends Component {
       name: "",
       series: "",
       digital: false,
-      colors: [],
+      colors: ["black"],
       price: 0.1,
+      checked: [true, false, false, false],
+      id: [0, 1, 2, 3],
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -20,27 +22,54 @@ class PostInstruments extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  handleCheck(e) {
-    let newArray = [...this.state.colors, e.target.value];
-    if (this.state.colors.includes(e.target.value)) {
-      newArray = newArray.filter((color) => color !== e.target.value);
+  handleCheck(id, e) {
+    let newChecked = [...this.state.checked];
+    if (newChecked[id] === false) {
+      newChecked[id] = true;
+    } else {
+      newChecked[id] = false;
     }
     this.setState({
-      colors: newArray,
+      checked: newChecked,
+    });
+
+    // adding color
+    let newColors = [...this.state.colors, e.target.value];
+    // if color already exists, delete it
+    if (this.state.colors.includes(e.target.value)) {
+      newColors = newColors.filter((color) => color !== e.target.value);
+    }
+    this.setState({
+      colors: newColors,
     });
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
-    axios
-      .post("http://localhost:8080/api/itemsIntake", this.state)
-      .then((res) => {
-        alert("Succuss: Item added");
-        window.location.reload(false);
-      })
-      .catch((error) => {
-        alert("Error: Could not post");
-      });
+    const data = this.state;
+    if (data.checked.every((item) => item === false)) {
+      alert("At least one color must be picked");
+    } else {
+      delete data.checked;
+      delete data.id;
+      axios
+        .post("http://localhost:8080/api/itemsIntake", data)
+        .then((res) => {
+          alert("Succuss: Item added");
+          this.setState({
+            name: "",
+            series: "",
+            digital: false,
+            colors: [],
+            price: 0.1,
+            checked: [false, false, false, false],
+            id: [0, 1, 2, 3],
+          });
+        })
+        .catch((error) => {
+          alert("Error: Could not post");
+        });
+    }
   };
 
   render() {
@@ -79,29 +108,32 @@ class PostInstruments extends Component {
               type="checkbox"
               name="colors"
               value="black"
-              onChange={this.handleCheck}
-              required
+              checked={this.state.checked[0]}
+              onChange={this.handleCheck.bind(this, this.state.id[0])}
             />
             <label>Black</label>
             <input
               type="checkbox"
               name="colors"
               value="grey"
-              onChange={this.handleCheck}
+              checked={this.state.checked[1]}
+              onChange={this.handleCheck.bind(this, this.state.id[1])}
             />
             <label>Grey</label>
             <input
               type="checkbox"
               name="colors"
               value="brown"
-              onChange={this.handleCheck}
+              checked={this.state.checked[2]}
+              onChange={this.handleCheck.bind(this, this.state.id[2])}
             />
             <label>Brown</label>
             <input
               type="checkbox"
               name="colors"
               value="white"
-              onChange={this.handleCheck}
+              checked={this.state.checked[3]}
+              onChange={this.handleCheck.bind(this, this.state.id[3])}
             />
             <label>White</label>
           </span>

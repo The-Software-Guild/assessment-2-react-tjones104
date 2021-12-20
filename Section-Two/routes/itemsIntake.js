@@ -11,7 +11,7 @@ const instrumentItems = [
     digital: false,
     colors: ["black", "grey", "brown"],
     price: 82999.99,
-    _id: uuidv4(),
+    _id: "123",
   },
   {
     name: "YDP-184",
@@ -19,7 +19,7 @@ const instrumentItems = [
     digital: true,
     colors: ["brown"],
     price: 2399.99,
-    _id: uuidv4(),
+    _id: "1234",
   },
 ];
 
@@ -50,7 +50,7 @@ router.get("/itemsIntake", (req, res) => {
 });
 
 // GET ONE
-router.get("/itemsIntake/:id", (req, res) => {
+router.get("/itemsIntake/:id", (req, res, next) => {
   if (
     instrumentItems.findIndex((instrumentItems) => {
       return instrumentItems._id == req.params.id;
@@ -84,7 +84,7 @@ router.post("/itemsIntake", (req, res, next) => {
 });
 
 // UPDATE
-router.put("/itemsIntake/:id", (req, res) => {
+router.put("/itemsIntake/:id", (req, res, next) => {
   if (
     instrumentItems.findIndex((instrumentItems) => {
       return instrumentItems._id == req.params.id;
@@ -108,7 +108,7 @@ router.put("/itemsIntake/:id", (req, res) => {
 });
 
 // DELETE
-router.delete("/itemsIntake/:id", (req, res) => {
+router.delete("/itemsIntake/:id", (req, res, next) => {
   if (
     instrumentItems.findIndex((instrumentItems) => {
       return instrumentItems._id == req.params.id;
@@ -122,6 +122,10 @@ router.delete("/itemsIntake/:id", (req, res) => {
   } else {
     next(new Error("The id was not found"));
   }
+});
+
+router.get("*", (req, res, next) => {
+  next(new Error("This route was not found"));
 });
 
 module.exports = router;

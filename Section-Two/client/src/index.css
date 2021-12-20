@@ -172,6 +172,16 @@ td {
   z-index: 1000;
 }
 
+.search-title {
+  display: flex;
+  align-items: center;
+}
+
+.search-by {
+  width: 15%;
+  margin-left: 10px;
+}
+
 h2 {
   color: #09bc8a;
   margin-top: auto;
@@ -280,10 +290,13 @@ button:hover {
 
   .cancel-edit {
     background-color: rgb(255, 38, 0);
-
     position: absolute;
     top: 77%;
     right: 15%;
+  }
+
+  .search-by {
+    width: 30%;
   }
 
   button {
