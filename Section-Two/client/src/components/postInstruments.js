@@ -62,7 +62,7 @@ class PostInstruments extends Component {
             digital: false,
             colors: [],
             price: 0.1,
-            checked: [false, false, false, false],
+            checked: [true, false, false, false],
             id: [0, 1, 2, 3],
           });
         })
@@ -142,7 +142,7 @@ class PostInstruments extends Component {
             type="number"
             name="price"
             value={this.state.price}
-            min="0"
+            min="0.01"
             step="0.01"
             onChange={this.handleChange}
             required

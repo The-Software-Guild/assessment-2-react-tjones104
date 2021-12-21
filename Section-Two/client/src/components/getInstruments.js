@@ -143,6 +143,11 @@ class GetInstruments extends Component {
                       onClose={this.handleToggle}
                       submit={this.handleReset}
                       id={items._id}
+                      name={items.name}
+                      series={items.series}
+                      digital={items.digital}
+                      colors={items.colors}
+                      price={items.price}
                     />
                   </Modal>
                 </td>

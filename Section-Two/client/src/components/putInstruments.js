@@ -2,15 +2,15 @@ import axios from "axios";
 import React, { Component } from "react";
 
 class PutInstruments extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      name: "",
-      series: "",
-      digital: false,
-      colors: ["black"],
-      price: 0.01,
-      checked: [true, false, false, false],
+      name: props.name,
+      series: props.series,
+      digital: props.digital,
+      colors: props.colors,
+      price: props.price,
+      checked: [false, false, false, false],
       id: [0, 1, 2, 3],
     };
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -20,6 +20,29 @@ class PutInstruments extends Component {
 
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
+  }
+
+  componentDidMount() {
+    if (this.state.colors.includes("black")) {
+      let newChecked = this.state.checked;
+      newChecked[0] = true;
+      this.setState({ [this.state.checked[0]]: newChecked[0] });
+    }
+    if (this.state.colors.includes("grey")) {
+      let newChecked = this.state.checked;
+      newChecked[1] = true;
+      this.setState({ [this.state.checked[1]]: newChecked[1] });
+    }
+    if (this.state.colors.includes("brown")) {
+      let newChecked = this.state.checked;
+      newChecked[2] = true;
+      this.setState({ [this.state.checked[2]]: newChecked[2] });
+    }
+    if (this.state.colors.includes("white")) {
+      let newChecked = this.state.checked;
+      newChecked[3] = true;
+      this.setState({ [this.state.checked[3]]: newChecked[3] });
+    }
   }
 
   handleCheck(id, e) {
@@ -140,7 +163,7 @@ class PutInstruments extends Component {
               type="number"
               name="price"
               value={this.state.price}
-              min="0"
+              min="0.01"
               step="0.01"
               onChange={this.handleChange}
               required
