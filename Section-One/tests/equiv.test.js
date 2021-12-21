@@ -110,5 +110,8 @@ describe("Equivalence Tests", () => {
     it("False: null and undefined are not strictly equal", () => {
       expect(strictEquals(null, undefined)).to.equal(expected(null, undefined));
     });
+    it("False: NaN and 'foo' are not strictly equal", () => {
+      expect(strictEquals(NaN, "foo")).to.equal(expected(NaN, "foo"));
+    });
   });
 });

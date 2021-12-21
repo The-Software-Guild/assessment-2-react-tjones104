@@ -5,14 +5,14 @@
 const strictEquals = (a, b) => {
   if (
     // Edge case 1: NaN and NaN is true
-    Object.is(Object.is(a, 0 / 0), true) &&
-    Object.is(Object.is(b, 0 / 0), true)
+    Object.is(a, NaN) &&
+    Object.is(b, NaN)
   ) {
     return false;
   } else if (
     // Edge case 2: -0 and +1 is true
-    (Object.is(Object.is(a, -0), true) && Object.is(Object.is(b, +0), true)) ||
-    (Object.is(Object.is(a, +0), true) && Object.is(Object.is(b, -0), true))
+    (Object.is(a, -0) && Object.is(b, +0)) ||
+    (Object.is(a, +0) && Object.is(b, -0))
   ) {
     return true;
   } else {
